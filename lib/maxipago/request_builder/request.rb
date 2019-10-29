@@ -1,14 +1,15 @@
-require 'net/https'
+require 'net/http'
 require 'uri'
 
 module Maxipago
   module RequestBuilder
     class Request
-      def def initialize(maxipagoId, apiKey)
-        @maxipagoId = maxipagoId
-        @apiKey = apiKey
-        @apiVersion = Maxipago::Client::APIVERSION
-        @header = {"Content-Type" => 'text/xml'}
+
+      def initialize(maxid, apikey)
+        @maxid = maxid
+        @apikey = apikey
+        @api_version = Maxipago::Client::APIVERSION
+        @header = { "Content-Type" => 'text/xml' }
       end
 
       def send_command(opts)
@@ -22,9 +23,9 @@ module Maxipago
         set_uri
         set_http_session
 
-        @http_session.start {|http|
-          repsonse = http.post(@uri.path, xml, @header)
-          {header: response, body: response.body, message: response.message}
+        @http_session.start { |http|
+          response = http.post(@uri.path, xml, @header)
+          { header: response, body: response.body, message: response.message }
         }
       end
 
@@ -32,10 +33,10 @@ module Maxipago
         raise "This is an abstract method"
       end
 
-      def buid_xml(opts)
+      def build_xml(opts)
         raise "This is an abstract method"
       end
-      
+
       def set_http_session
         @http_session = Net::HTTP.new(@uri.host, @uri.port)
         @http_session.use_ssl = true if @uri.scheme == "https"

@@ -1,4 +1,4 @@
-require "net_https"
+require "net/http"
 require "uri"
 
 module Maxipago

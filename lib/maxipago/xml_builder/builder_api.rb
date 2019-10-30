@@ -5,30 +5,31 @@ module Maxipago
       private
 
       def add_consumer
-        builder = Nokogiri::XML::Bulder.new(encoding: 'UTF-8') do |xml|
+        builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("api-request") {
             xml.verification {
-              xml.merchantId maxipagoId
-              xml.merchantKey apiKey
+              xml.merchantId self.maxipagoId
+              xml.merchantKey self.apiKey
             }
             xml.command "add-consumer"
             xml.request {
-              xml.customerIdExt options[:customer_id_ext]
-              xml.firstName options[:firstname]
-              xml.lastName options[:lastname]
-              xml.address1 options[:address1] unless options[:address1].nil?
-              xml.address2 options[:address2] unless options[:address2].nil?
-              xml.city options[:city] unless options[:city].nil?
-              xml.state options[:state] unless options[:state].nil?
-              xml.zip options[:zip] unless options[:zip].nil?
-              xml.phone options[:phone] unless options[:phone].nil?
-              xml.email options[:email] unless options[:email].nil?
-              xml.dob options[:dob] unless options[:dob].nil?
-              xml.ssn options[:ssn] unless options[:ssn].nil?
-              xml.sex options[:sex] unless options[:sex].nil?
+              xml.customerIdExt self.options[:customer_id_ext]
+              xml.firstName self.options[:firstname]
+              xml.lastName self.options[:lastname]
+              xml.address1 self.options[:address1] unless self.options[:address1].nil?
+              xml.address2 self.options[:address2] unless self.options[:address2].nil?
+              xml.city self.options[:city] unless self.options[:city].nil?
+              xml.state self.options[:state] unless self.options[:state].nil?
+              xml.zip self.options[:zip] unless self.options[:zip].nil?
+              xml.phone self.options[:phone] unless self.options[:phone].nil?
+              xml.email self.options[:email] unless self.options[:email].nil?
+              xml.dob self.options[:dob] unless self.options[:dob].nil?
+              xml.ssn self.options[:ssn] unless self.options[:ssn].nil?
+              xml.sex self.options[:sex] unless self.options[:sex].nil?
             }
           }
         end
+        puts builder.to_xml(indent: 2)
         builder.to_xml(indent: 2)
       end
 

@@ -9,7 +9,7 @@ module Maxipago
     end
 
     def execute(opts = {})
-      raise "Sets the api type vefore execute commands." if request.nil?
+      raise "Sets the api type before execute commands." if request.nil?
       raise ArgumentError, "Execute method needs options" if opts.empty?
 
       @response = request.send_command(opts)

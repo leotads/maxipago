@@ -4,7 +4,7 @@ require "uri"
 module Maxipago
   module RequestBuilder
     class ApiRequest < Maxipago::RequestBuilder::Request
-      URL = ENV['MP_URL_API'] || "https://testeapi.maxipago.net/UniversalAPI/postAPI"
+      URL = ENV['MP_URL_API'] || "https://api.maxipago.net/UniversalAPI/postAPI"
 
       private
 

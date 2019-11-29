@@ -29,7 +29,6 @@ module Maxipago
             }
           }
         end
-        puts builder.to_xml(indent: 2)
         builder.to_xml(indent: 2)
       end
 

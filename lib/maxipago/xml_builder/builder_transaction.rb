@@ -7,7 +7,7 @@ module Maxipago
       def save_on_file
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-          xml.version self.apiversion
+          xml.version self.apiVersion
           xml.verification {
             xml.merchantId self.maxipagoId
             xml.merchantKey self.apiKey
@@ -56,7 +56,7 @@ module Maxipago
       def authorization
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-          xml.version self.apiversion
+          xml.version self.apiVersion
           xml.verification {
             xml.merchantId self.maxipagoId
             xml.merchantKey self.apiKey
@@ -124,7 +124,7 @@ module Maxipago
       def authentication
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -192,7 +192,7 @@ module Maxipago
       def capture
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -214,7 +214,7 @@ module Maxipago
       def sale
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -288,7 +288,7 @@ module Maxipago
       def void
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -306,7 +306,7 @@ module Maxipago
       def reversal
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -328,7 +328,7 @@ module Maxipago
       def recurring
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -338,11 +338,13 @@ module Maxipago
                 xml.processorID self.options[:processor_id]
                 xml.referenceNum self.options[:reference_num]
                 xml.ipAddress self.options[:ip_address] unless self.options[:ip_address].nil?
+                xml.customerIdExt self.options[:customer_id_ext] unless self.options[:customer_id_ext].nil?
                 unless self.options[:billing_name].nil?
                   xml.billing {
                     xml.name self.options[:billing_name]
                     xml.address self.options[:billing_address] unless self.options[:billing_address].nil?
                     xml.address2 self.options[:billing_address2] unless self.options[:billing_address2].nil?
+                    xml.district self.options[:billing_district] unless self.options[:billing_district].nil?
                     xml.city self.options[:billing_city] unless self.options[:billing_city].nil?
                     xml.state self.options[:billing_state] unless self.options[:billing_state].nil?
                     xml.postalcode self.options[:billing_postalcode] unless self.options[:billing_postalcode].nil?
@@ -356,6 +358,7 @@ module Maxipago
                     xml.name self.options[:shipping_name]
                     xml.address self.options[:shipping_address] unless self.options[:shipping_address].nil?
                     xml.address2 self.options[:shipping_address2] unless self.options[:shipping_address2].nil?
+                    xml.district self.options[:shipping_district] unless self.options[:shipping_district].nil?
                     xml.city self.options[:shipping_city] unless self.options[:shipping_city].nil?
                     xml.state self.options[:shipping_state] unless self.options[:shipping_state].nil?
                     xml.postalcode self.options[:shipping_postalcode] unless self.options[:shipping_postalcode].nil?
@@ -384,6 +387,7 @@ module Maxipago
                 }
                 xml.payment {
                   xml.chargeTotal self.options[:charge_total]
+                  xml.currencyCode self.options[:currency_code] unless self.options[:currency_code].nil?
                 }
                 xml.recurring {
                   xml.action "new"
@@ -391,19 +395,23 @@ module Maxipago
                   xml.frequency self.options[:frequency]
                   xml.period self.options[:period]
                   xml.installments self.options[:installments]
+                  xml.firstAmount self.options[:first_amount] unless self.options[:first_amount].nil?
+                  xml.lastAmount self.options[:last_amount] unless self.options[:last_amount].nil?
+                  xml.lastDate self.options[:last_date] unless self.options[:last_date].nil?
                   xml.failureThreshold self.options[:failure_threshold]
                 }
               }
             }
           }
         end
+        puts builder.to_xml(indent: 2)
         builder.to_xml(indent: 2)
       end
 
       def bank_bill
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey
@@ -461,7 +469,7 @@ module Maxipago
       def online_debit
         builder = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
           xml.send("transaction-request") {
-            xml.version self.apiversion
+            xml.version self.apiVersion
             xml.verification {
               xml.merchantId self.maxipagoId
               xml.merchantKey self.apiKey

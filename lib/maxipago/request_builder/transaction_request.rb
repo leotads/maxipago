@@ -12,7 +12,7 @@ module Maxipago
         @uri = URI.parse(URL)
       end
 
-      def build_xml
+      def build_xml(opts)
         Maxipago::XmlBuilder::BuilderTransaction.new(@maxipagoId, @apiKey, @apiVersion, opts).get_xml_data
       end
     end

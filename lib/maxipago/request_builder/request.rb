@@ -8,7 +8,7 @@ module Maxipago
       def initialize(maxipagoId, apiKey)
         @maxipagoId = maxipagoId
         @apiKey = apiKey
-        @api_version = Maxipago::Client::APIVERSION
+        @apiVersion = Maxipago::Client::APIVERSION
         @header = { "Content-Type" => 'text/xml' }
       end
 
